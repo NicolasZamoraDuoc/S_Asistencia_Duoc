@@ -53,6 +53,10 @@ export class LoginPage implements ViewWillEnter {
     addIcons({ colorWandOutline }); 
   }
 
+  login() {
+    this.authService.login(this.correo, this.password);
+  }
+
   async ionViewWillEnter() {
     this.selectLanguage.setCurrentLanguage();
   }
@@ -61,9 +65,7 @@ export class LoginPage implements ViewWillEnter {
     this.router.navigate(['/theme']);
   }
 
-  login() {
-    this.authService.login(this.correo, this.password);
-  }
+
 
   registerNewUser() {
 

@@ -43,7 +43,7 @@ import { Capacitor } from '@capacitor/core';
 import { defineCustomElements as jeepSqlite} from 'jeep-sqlite/loader';
 import { APP_INITIALIZER } from '@angular/core';
 import { SQLiteService } from './app/services/sqlite.service';
-import { DatabaseService } from './app/services/database.service';
+import { DataBaseService } from './app/services/data-base.service';
 import { InitializeService } from './app/services/initialize.service';
 import { AuthService } from './app/services/auth.service';
 import { Storage } from '@ionic/storage-angular';
@@ -85,7 +85,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(HttpClient),
     InitializeService,
     SQLiteService,
-    DatabaseService,
+    DataBaseService,
     AuthService,
     Storage,
     APIClientService,

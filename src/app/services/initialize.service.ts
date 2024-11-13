@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { Injectable } from '@angular/core';
 import { SQLiteService } from './sqlite.service';
-import { DatabaseService } from './database.service';
+import { DataBaseService } from './data-base.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class InitializeService {
 
   constructor(
     private sqliteService: SQLiteService,
-    private storageService: DatabaseService,
+    private storageService: DataBaseService,
     private authService: AuthService) { }
 
   async inicializarAplicacion() {
@@ -26,7 +26,7 @@ export class InitializeService {
           await this.sqliteService.initializeWebStore();
         }
         // Inicializar la base de datos del sistema en SQLite. La base de datos
-        await this.storageService.initializeDataBase();
+        await this.storageService.inicializarBaseDeDatos();
         // if( this.sqliteService.platform === 'web') {
         //   await this.sqliteService.guardarNombreBaseDeDatos();
         // }

@@ -9,9 +9,8 @@ import { NivelEducacional } from '../model/nivel-educacional';
   providedIn: 'root'
 })
 export class DataBaseService {
-  static crearUsuariosDePrueba() {
-    throw new Error('Method not implemented.');
-  }
+
+  
 
   userUpgrades = [
     {

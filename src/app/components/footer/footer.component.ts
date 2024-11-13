@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { homeOutline, pawOutline, pencilOutline, qrCodeOutline, flowerOutline, schoolOutline, gridOutline } from 'ionicons/icons';
-import { MiclaseComponent } from '../miclase/miclase.component';
 import { QrWebScannerComponent } from '../qr-web-scanner/qr-web-scanner.component';
 import { ForumComponent } from '../forum/forum.component';
 
@@ -19,7 +18,7 @@ import { ForumComponent } from '../forum/forum.component';
     , FormsModule     // CGV-Permite usar formularios
     , TranslateModule // CGV-Permite usar pipe 'translate'
     , IonFooter, IonToolbar, IonSegment, IonSegmentButton, IonIcon,
-    ForumComponent, MiclaseComponent, QrWebScannerComponent
+    ForumComponent, QrWebScannerComponent
   ]
 })
 export class FooterComponent {

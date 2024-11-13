@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { User } from 'src/app/model/user';
+import { Usuario } from 'src/app/model/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { mostrarEjemplosDeMensajes } from './../../tools/message-functions';
 import { CommonModule } from '@angular/common';
@@ -24,14 +24,14 @@ export class WelcomeComponent implements OnInit {
   @Output() stopped: EventEmitter<void> = new EventEmitter<void>();
   qrData: string = '';
   mediaStream: MediaStream | null = null; // Almacena el flujo de medios
-  user: User = new User();
+  usuario: Usuario = new Usuario();
 
   constructor(private auth: AuthService, private authService: AuthService) { 
     this.startQrScanningForWeb();
-    this.auth.authUser.subscribe((user) => {
-      console.log(user);
-      if (user) {
-        this.user = user;
+    this.auth.usuarioAutenticado.subscribe((usuario) => {
+      console.log(usuario);
+      if (usuario) {
+        this.usuario = usuario;
       }
     });
   }
@@ -87,8 +87,8 @@ export class WelcomeComponent implements OnInit {
 
   public mostrarDatosQROrdenados(datosQR: string): void{
     this.mostrarDatosQROrdenados;
-    this.user.asistencia = JSON.parse(datosQR);
-    this.authService.saveAuthUser(this.user)
+    this.usuario.asistencia = JSON.parse(datosQR);
+    this.authService.guardarUsuarioAutenticado(this.usuario)
 
   }
 

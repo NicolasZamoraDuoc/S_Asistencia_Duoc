@@ -32,18 +32,18 @@ export class MisDatosPage implements OnInit {
     private api: APIClientService) 
   { 
   
-    this.bd.userList.subscribe((usuarios) => {
-      if (usuarios) {
-        this.usuarios = usuarios;
-      }
-    });
-    this.auth.readAuthUser().then((usuario) => {
-      if (usuario) {
-        alert('en constructor: '+this.usuario.educationalLevel.id);
-        this.usuario = usuario;
-        console.log(this.usuario);
-      }
-    });
+    // this.bd.userList.subscribe((usuarios) => {
+    //   if (usuarios) {
+    //     this.usuarios = usuarios;
+    //   }
+    // });
+    // this.auth.readAuthUser().then((usuario) => {
+    //   if (usuario) {
+    //     alert('en constructor: '+this.usuario.educationalLevel.id);
+    //     this.usuario = usuario;
+    //     console.log(this.usuario);
+    //   }
+    // });
   
   }
 
@@ -51,19 +51,19 @@ export class MisDatosPage implements OnInit {
 
   }
 
-  guardarUsuario() {
-    if (this.usuario.firstName.trim() === '') {
-       showToast('El usuario debe tener un nombre');
-     } else {
-       console.log(this.usuario);
-       alert('en pagina nombre: '+this.usuario.firstName);
-       alert('en pagina nivelEducacional: '+this.usuario.educationalLevel.id);
-       alert('en pagina fecha: '+this.usuario.dateOfBirth);
-       this.bd.saveUser(this.usuario);
-       this.auth.saveAuthUser(this.usuario);
-       showToast('El usuario fue guardado correctamente');
-     }
-  }
+  // guardarUsuario() {
+  //   if (this.usuario.firstName.trim() === '') {
+  //      showToast('El usuario debe tener un nombre');
+  //    } else {
+  //      console.log(this.usuario);
+  //      alert('en pagina nombre: '+this.usuario.firstName);
+  //      alert('en pagina nivelEducacional: '+this.usuario.educationalLevel.id);
+  //      alert('en pagina fecha: '+this.usuario.dateOfBirth);
+  //      this.bd.saveUser(this.usuario);
+  //      this.auth.guardarUsuarioAutenticado(this.usuario);
+  //      showToast('El usuario fue guardado correctamente');
+  //    }
+  // }
 
   public actualizarNivelEducacional(event: any) {
      debugger

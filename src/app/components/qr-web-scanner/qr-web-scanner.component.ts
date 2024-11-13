@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { EventEmitter } from '@angular/core';
 import jsQR, { QRCode } from 'jsqr';
-import { User } from 'src/app/model/user';
+import { Usuario } from 'src/app/model/usuario';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -17,6 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [IonicModule, CommonModule, FormsModule, TranslateModule],
 })
 export class QrWebScannerComponent implements OnDestroy {
+  
+  
+  usuario: Usuario = new Usuario();
 
   @ViewChild('video') private video!: ElementRef;
   @ViewChild('canvas') private canvas!: ElementRef;
@@ -25,7 +28,7 @@ export class QrWebScannerComponent implements OnDestroy {
 
   qrData: string = '';
   mediaStream: MediaStream | null = null; // Almacena el flujo de medios
-  user: User = new User();
+  user: Usuario = new Usuario();
 
   constructor(private authService: AuthService) 
   { 
@@ -84,7 +87,7 @@ export class QrWebScannerComponent implements OnDestroy {
   public mostrarDatosQROrdenados(datosQR: string): void{
     this.mostrarDatosQROrdenados;
     this.user.asistencia = JSON.parse(datosQR);
-    this.authService.saveAuthUser(this.user)
+    this.authService.guardarUsuarioAutenticado(this.user)
 
   }
 
