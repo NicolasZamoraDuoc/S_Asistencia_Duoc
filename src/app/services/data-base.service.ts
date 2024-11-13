@@ -163,4 +163,9 @@ export class DataBaseService {
     return usuarios[0];
   }
 
+
+  async validarPreguntaSecreta(cuenta: string, respuestaSecreta: string): Promise<boolean> {
+    const usuario = await this.leerUsuario(cuenta);
+    return usuario ? usuario.respuestaSecreta.toLowerCase() === respuestaSecreta.toLowerCase().trim() : false;
+  }
 }

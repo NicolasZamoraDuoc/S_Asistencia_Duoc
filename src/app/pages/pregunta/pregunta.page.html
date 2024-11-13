@@ -1,39 +1,31 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-col size-md="6">
-      <ion-img src="/assets/icon/logo-duoc.png" class="logo ion-margin-left"></ion-img>
-    </ion-col>
-    <ion-col size-md="12">
-      <div class="ion-text-center">Sistema de Asistencia DUOCUC</div>
-    </ion-col>
-    <ion-col size-md="6"></ion-col>
-  </ion-toolbar>
-</ion-header>
-<br>
-
-
 <ion-content>
-  <img src="/assets/icon/c-28b93bf742.webp" class="img-fluid" style="position: absolute; right: 0; top: 0; z-index: -100; WIDTH:100%; height: 100%;">
-  <div class="centrado-vertical">
-    <ion-card-content class="login ion-fade-in-up ion-animatable">
-      <br>
-      <ion-title>
-        <h2>Paso 2:</h2>
-        <h2>Responde la pregunta</h2>
-        <ion-text class="ion-text-center"><h2>Usuario: {{ nombre }} {{apellido}}</h2></ion-text>
-        <ion-text class="ion-text-center"><h2>{{preguntaSecreta}}</h2></ion-text> 
-      </ion-title>
-      <ion-item class="ion-margin-top">
-        <ion-input label="Ingrese Respuesta: " labelplacement="floating" [(ngModel)]="respuestaSecreta"></ion-input>
+  <div class="centered-container">
+    <div class="forgot-password-card">
+      <img src="assets/images/duoc-logo2.png">
+
+      <h2>Sistema de asistencia DUOC UC</h2>
+
+      <h3>Recuperar contraseña</h3>
+      <p>Paso 2: Responde la pregunta secreta</p>
+
+      <!-- Aquí mostramos el nombre completo del usuario -->
+      <p>{{ usuario.nombre }}</p>
+
+      <ion-item>
+        <ion-label position="stacked">
+          <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+          <!-- Aquí mostramos la pregunta secreta del usuario -->
+          {{ usuario.preguntaSecreta }}
+        </ion-label>
+        <br>
+        <!-- Campo para ingresar la respuesta a la pregunta secreta -->
+        <ion-input [(ngModel)]="respuestaIngresada" placeholder="Ingresa la respuesta"></ion-input>
       </ion-item>
-    
-      <ion-row>
-        <ion-col size="12">
-          <br>
-          <ion-button shape="block" (click)="recuperarContrasena()">Recuperar Contraseña</ion-button>
-          <ion-button expand="block" class="ion-margin-top"  (click)="volverAlInicio()"> Volver al Inicio </ion-button>
-        </ion-col>
-      </ion-row> 
-    </ion-card-content>
+
+      <!-- Botón que valida la respuesta -->
+      <ion-button expand="block" (click)="validarRespuesta()">Recuperar contraseña</ion-button>
+
+      <a href="#" class="login-link">Volver a Iniciar sesión</a>
+    </div>
   </div>
 </ion-content>
