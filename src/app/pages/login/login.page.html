@@ -4,20 +4,18 @@
   <!-- HEADER DE LA PÁG -->
 <ion-header>
 
-  <div class="logo-uc">
-    <img src="assets/images/Logo_DuocUC.svg.png" alt="Logo UC" class="logo-uc">
-  </div>
-
 
   <ion-toolbar class="grey">
     
     <div slot="start" class="ion-margin idioma" >
       <app-language #selectLanguage></app-language>
     </div>
-    <div class="show-in-landscape">
-      <h1 class="glow-text"> {{ 'AppName' | translate }} </h1>
+
+
+    <div class="logo-uc">
+      <img src="assets/images/Logo_DuocUC.svg.png" alt="Logo UC" class="logo-uc" >
     </div>
-   
+  
 
     <div slot="end" class="ion-margin">
       <ion-button class="duoc-yellow" shape="round" size="small" (click)="navigateTheme()">
@@ -28,16 +26,21 @@
    </ion-toolbar>
 </ion-header>
 
+
 <!-- CONTENT Y FORMULARIO -->
 
 <ion-content [fullscreen]="true">
 
   <img class="background-image" src="/assets/images/1725086412.jpg">
-  
+  <br><br>
   <h1 class="glow-text show-in-portrait margin-top-6"> {{ 'AppName' | translate }} </h1>
 
-  <ion-card class="login-container transparent-input">
+  <div class="show-in-landscape">
+    <h1 class="glow-text"> {{ 'AppName' | translate }} </h1>
+  </div>
 
+
+  <ion-card class="login-container transparent-input ">
     <ion-card-header class="show-in-portrait">
       <ion-card-title color="light" class="glow-text">
         <h4>
@@ -50,7 +53,7 @@
 
     <ion-card-content class="transparent-input text-center">
       
-      <ion-item class="margin-bottom-6 float-left-landscape">
+      <ion-item class="margin-bottom-6 float-center-landscape">
         <ion-input 
           label="{{ 'Login.Label.Cuenta' | translate }}" 
           labelPlacement="floating"
@@ -59,7 +62,7 @@
         </ion-input>
       </ion-item>
 
-      <ion-item class="margin-bottom-6 float-right-landscape">
+      <ion-item class="margin-bottom-6 float-center-landscape">
         <ion-input 
           label="{{ 'Login.Label.Password' | translate }}"
           labelPlacement="floating"
@@ -68,6 +71,7 @@
           type="password">
         </ion-input>
       </ion-item>
+      <br>
 
       <div class="ion-text-center margin-top-6" style="clear: both;">
         <ion-button class="enter-button normal-text orange-buton" shape="round" (click)="login()">
@@ -77,17 +81,19 @@
 
     </ion-card-content>
 
-  </ion-card>
 
+
+    <ion-footer>
+      <ion-button color="primary" shape="block" (click)="irAlMapa()">
+        {{ 'HomePage.Button.Map' | translate }}
+      </ion-button>
+    
+      <ion-button color="secondary" shape="block" (click)="passwordRecovery()">
+        {{ 'Login.Button.ForgotPassword' | translate }}
+      </ion-button>
+    </ion-footer>
+  </ion-card>
 </ion-content>
 
-<ion-footer>
-  <ion-button color="primary" shape="block" (click)="irAlMapa()">
-    {{ 'HomePage.Button.Map' | translate }}
-  </ion-button>
 
-  <ion-button color="secondary" shape="block" (click)="passwordRecovery()">
-    {{ 'Login.Button.ForgotPassword' | translate }}
-  </ion-button>
-</ion-footer>
 
