@@ -1,0 +1,25 @@
+<ion-content class="ion-padding ion-text-center" class="video-container">
+
+  <img class="background-image" src="/assets/images/IMG_20230310_082210.jpg">
+  <div class="ion-text-center">
+    <h1> {{ "WelcomePage.Title.Wellcome" | translate }} </h1>
+    <h1> {{ user.firstName}} {{ user.lastName }} </h1>
+  </div>
+
+
+  <div class="frame">
+    <video class="video" #video></video>
+    <div class="qr-overlay"></div>
+    <div class="moving-horizontal-line"></div>
+  </div>
+
+  <canvas #canvas hidden></canvas>
+
+</ion-content>
+<ion-footer class="custom-footer">
+  <ion-toolbar color="primary" class="ion-text-center">
+    <ion-button class="stop-button" (click)="stopQrScanning()">
+      {{"HomePage.Button.Detener"| translate }}
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

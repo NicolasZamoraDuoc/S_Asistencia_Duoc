@@ -1,0 +1,35 @@
+<app-header 
+  (headerClick)="headerClick($event)">
+</app-header>
+
+<ion-content [fullscreen]="true">
+  <img class="background-image" src="/assets/images/IMG_20230310_082210.jpg">
+  <app-qrwebscanner 
+    *ngIf="selectedComponent === 'qrwebscanner'" 
+    (scanned)="webQrScanned($event)"
+    (stopped)="webQrStopped()">
+  </app-qrwebscanner >
+  
+  <app-welcome
+    *ngIf="selectedComponent === 'welcome'">
+  </app-welcome>
+
+  <app-dinosaur
+    *ngIf="selectedComponent === 'dinosaur'">
+  </app-dinosaur>
+
+  <app-mis-datos
+    *ngIf="selectedComponent === 'mis-datos'">
+  </app-mis-datos>
+
+  <app-forum 
+    *ngIf="selectedComponent === 'forum'">
+  </app-forum>
+
+  
+
+</ion-content>
+
+<app-footer
+  (footerClick)="footerClick($event)">
+</app-footer>

@@ -1,0 +1,51 @@
+
+<ion-content>
+  <img class="background-image" src="/assets/images/IMG_20230310_082210.jpg">
+  <div class="background-image" *ngIf="user"></div>
+
+  <ion-grid fixed *ngIf="user" class="dino-content">
+    <ion-row>
+      <ion-col size="5">Nombre Asignatura</ion-col>
+      <ion-col size="7">{{ user.nombreAsignatura}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5">Nombre Profesor</ion-col>
+      <ion-col size="7">{{ user.nombreProfesor }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5">Id Asignatura</ion-col>
+      <ion-col size="7">{{ user.idAsignatura }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5">Seccion</ion-col>
+      <ion-col size="7">{{ user.seccion  }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5">Día</ion-col>
+      <ion-col size="7">{{ user.dia }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5">Hora Inicio</ion-col>
+      <ion-col size="7">{{ user.horaInicio }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5">Hora Fin</ion-col>
+      <ion-col size="7">{{ user.horaFin }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5">Bloque Termino </ion-col>
+      <ion-col size="7">{{ user.bloqueTermino  }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="5">Sede </ion-col>
+      <ion-col size="7">{{ user.sede }}</ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="!user" class="center-frame">
+    <div class="picture-frame ion-text-center">
+      <img class="you-must-scan" src="/assets/images/you-must-scan.png">
+    </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,22 @@
+<ion-content>
+  <div class="centered-container">
+    <div class="forgot-password-card">
+      <img src="assets/images/duoc-logo2.png" alt="Logo UC" class="logo-uc">
+      <h2>Sistema de asistencia DUOC UC</h2>
+      <h3>Recuperar contraseña</h3>
+      <p>Paso 1: Ingresa tu correo</p>
+      
+      <ion-item>
+        <ion-label position="stacked">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
+          Correo
+        </ion-label>
+        <br>
+        <ion-input [(ngModel)]="correoIngresado" type="email" placeholder="ejm:c.aranda@duocuc.cl"></ion-input>
+      </ion-item>
+      
+      <ion-button expand="block" (click)="validarCorreo()">Recuperar contraseña</ion-button>
+      <a href="#" class="login-link">Iniciar sesión</a>
+    </div>
+  </div>
+</ion-content>

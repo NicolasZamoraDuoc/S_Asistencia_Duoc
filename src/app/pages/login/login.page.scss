@@ -1,0 +1,85 @@
+.logo-container {
+    display: flex; /* Alinea los elementos en una fila */
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+    justify-content: flex-start; /* Alinea los elementos a la izquierda */
+}
+
+
+
+
+@media screen and (orientation: portrait) {
+    .login-container {
+        width: 300px;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .login-container {
+        width: 480px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    .float-left-landscape {
+        float: left;
+    }
+
+    .float-right-landscape {
+        float: right;
+    }
+
+    //Nico
+
+    .logo-uc {
+        width: 60px; 
+        height: auto;
+        margin-left: 3px; 
+      }
+    
+      .logo-text {
+        font-family: 'Poppins', sans-serif;
+        font-size: 4rem;
+        font-weight: 700; 
+    
+        .duoc-yellow {
+          color: #F1B634; 
+        }
+    
+        .duoc-white {
+          color: #FFFFFF; 
+        }
+      }
+
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%; /* O puedes establecer un ancho específico si lo prefieres */
+        max-width: 400px; /* Ancho máximo para el formulario */
+        margin: auto; /* Centra el formulario horizontalmente */
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Centra completamente el formulario */
+      }
+      .logo-uc {
+        width: 100px; 
+        height: auto;
+        margin-left: 3px; 
+      }
+
+}
+
+
+
+
+
+
+
+
+
