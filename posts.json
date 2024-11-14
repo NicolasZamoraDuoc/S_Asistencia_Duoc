@@ -1,20 +1,3 @@
 {
-  "posts": [
-    {
-      "id": "40a7",
-      "title": "adas",
-      "body": "asdasd",
-      "author": "Ana Torres",
-      "date": "2024-11-14",
-      "authorImage": "/api/placeholder/100/100"
-    },
-    {
-      "id": "2a91",
-      "title": "asdasdas",
-      "body": "asd",
-      "author": "Juan Pérez",
-      "date": "2024-11-14",
-      "authorImage": "/api/placeholder/100/100"
-    }
-  ]
+  "posts": []
 }

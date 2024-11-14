@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
@@ -7,6 +7,9 @@ import { NavController } from '@ionic/angular';
 import { logOutOutline, qrCodeOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertController, AnimationController } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-header',
@@ -20,12 +23,36 @@ import { AuthService } from 'src/app/services/auth.service';
     , TranslateModule // CGV-Permite usar pipe 'translate'
   ]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, AfterViewInit {
   
   @Output() headerClick = new EventEmitter<string>();
 
-  constructor(private navCtrl: NavController, private authService: AuthService) { 
+  @ViewChild('titulo', { read: ElementRef })
+  itemTitulo!: ElementRef;
+
+  constructor(private navCtrl: NavController, private authService: AuthService, private animationController : AnimationController) { 
     addIcons({ logOutOutline, qrCodeOutline });
+  }
+
+
+  async ngOnInit() {
+  }
+
+  async ngAfterViewInit() {
+    this.animarTituloIzqDer();
+
+    
+  }
+
+  animarTituloIzqDer() {
+    this.animationController
+      .create()
+      .addElement(this.itemTitulo.nativeElement)
+      .iterations(Infinity)
+      .duration(6000)
+      .fromTo('transform', 'translate(10%)', 'translate(100%)')
+      .fromTo('opacity',1, 1,)
+      .play();
   }
 
   sendClickEvent(buttonName: string) {
