@@ -106,7 +106,10 @@ export class MisDatosPage implements OnInit {
     this.mostrarMensajeAlerta(mensaje);
   }
 
-
+  public cerrarSesion(): void {
+    // Navegamos a la página de login
+    this.auth.logout();
+    }
 
   async mostrarMensajeAlerta(mensaje: string,) {
     const alert = await this.alertController.create({

@@ -42,4 +42,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/correcto/correcto.page').then( m => m.CorrectoPage)
   },
 
+  {
+    path: 'miclase',
+    loadComponent: () => import('./pages/miclase/miclase.page').then( m => m.MiclasePage)
+  },
+
+
 ];

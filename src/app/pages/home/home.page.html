@@ -5,7 +5,7 @@
 <ion-content [fullscreen]="true">
   <img class="background-image" src="/assets/images/IMG_20230310_082210.jpg">
   <app-qrwebscanner 
-    *ngIf="selectedComponent === 'qrwebscanner'" 
+    *ngIf="selectedComponent === 'qrwebscanner'"
     (scanned)="webQrScanned($event)"
     (stopped)="webQrStopped()">
   </app-qrwebscanner >

@@ -5,25 +5,40 @@ import { showAlertError, showToast } from 'src/app/tools/message-functions';
 import { Storage } from '@ionic/storage-angular';
 import { DataBaseService } from './data-base.service';
 import { Usuario } from '../model/usuario';
+import { Asistencia } from '../model/asistencia'; // Asegúrate de usar la ruta correcta
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   [x: string]: any;
+  private qrDataSubject = new BehaviorSubject<Asistencia | null>(null);
+  public qrCodeData = this.qrDataSubject.asObservable();
 
+  setQRData(data: string | Asistencia) {
+    try {
+      let asistencia: Asistencia;
+      if (typeof data === 'string') {
+        asistencia = Asistencia.fromJson(data); // Ahora podemos usar el método estático
+      } else {
+        asistencia = data;
+      }
+      this.qrDataSubject.next(asistencia);
+    } catch (error) {
+      console.error('Error processing QR data:', error);
+      this.qrDataSubject.next(null);
+    }
+  }
+
+  getCurrentQRData(): Asistencia | null {
+    return this.qrDataSubject.value;
+  }
   storageAuthUserKey = 'AUTHENTICATED_USER';
   isFirstLogin = new BehaviorSubject<boolean>(false);
   storageQrCodeKey = 'QR_CODE';
-  qrCodeData = new BehaviorSubject<string | null>(null);
   keyUsuario = 'USUARIO_AUTENTICADO';
   usuarioAutenticado = new BehaviorSubject<Usuario | null>(null);
-  // La variable primerInicioSesion vale true cuando el usuario digita correctamente sus
-  // credenciales y logra entrar al sistema por primera vez. Pero vale falso, si el 
-  // usuario ya ha iniciado sesión, luego cierra la aplicación sin cerrar la sesión
-  // y vuelve a entrar nuevamente. Si el usuario ingresa por primera vez, se limpian todas
-  // las componentes, pero se dejan tal como están y no se limpian, si el suario
-  // cierra al aplicación y la vuelve a abrir sin haber previamente cerrado la sesión.
+
   primerInicioSesion =  new BehaviorSubject<boolean>(false);
   selectedButton = new BehaviorSubject<string>('codigoqr');
 
@@ -104,37 +119,4 @@ export class AuthService {
     this.usuarioAutenticado.next(usuario);
   }
 
-
-  // async readQrFromStorage(): Promise<string | null> {
-  //   try {
-  //     const qrData = await this.storage.get(this.storageQrCodeKey) as string | null;
-  //     this.qrCodeData.next(qrData);
-  //     return qrData;
-  //   } catch (error) {
-  //     showAlertError('AuthService.readQrFromStorage', error);
-  //     return null;
-  //   }
-  // }
-
-  // async saveQrToStorage(qrData: string): Promise<string | null> {
-  //   try {
-  //     await this.storage.set(this.storageQrCodeKey, qrData);
-  //     this.qrCodeData.next(qrData);
-  //     return qrData;
-  //   } catch (error) {
-  //     showAlertError('AuthService.saveQrToStorage', error);
-  //     return null;
-  //   }
-  // }
-
-  // async deleteQrFromStorage(): Promise<boolean> {
-  //   try {
-  //     await this.storage.remove(this.storageQrCodeKey);
-  //     this.qrCodeData.next(null);
-  //     return true;
-  //   } catch (error) {
-  //     showAlertError('AuthService.deleteQrFromStorage', error);
-  //     return false;
-  //   }
-  // }
 }

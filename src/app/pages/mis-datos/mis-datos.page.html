@@ -11,9 +11,6 @@
   <ion-item><ion-input label="Correo" labelPlacement="floating"
         [(ngModel)]="usuario.correo"></ion-input></ion-item>
 
-  <ion-item><ion-input label="Contraseña" labelPlacement="floating"
-        [(ngModel)]="usuario.password"></ion-input></ion-item>
-
   <ion-item><ion-input label="Pregunta secreta" labelPlacement="floating"
         [(ngModel)]="usuario.preguntaSecreta"></ion-input></ion-item>
 
@@ -23,32 +20,40 @@
   <ion-item><ion-input label="Nombre" labelPlacement="floating"
         [(ngModel)]="usuario.nombre"></ion-input></ion-item>
 
+<ion-item><ion-input label="Apellido" labelPlacement="floating"
+        [(ngModel)]="usuario.apellido"></ion-input></ion-item>
 
-  <!-- <ion-item class="font-size-12">
-    <ion-select [(ngModel)]="usuario.educationalLevel.id"
-        (ionChange)="actualizarNivelEducacional($event)"
-        label="Educación" position="floating">
-      <ion-select-option  *ngFor="let nivelEducacional of listaNivelesEducacionales"
-        [value]="nivelEducacional.id">
-          {{nivelEducacional.firstName}}
-      </ion-select-option>
-    </ion-select>
-  </ion-item> -->
+  <ion-item><ion-input label="Contraseña" labelPlacement="floating"
+        [(ngModel)]="usuario.password"></ion-input></ion-item>
 
-  <!-- <ion-item>
-    <app-date-picker 
-        [(ngModel)]="usuario.dateOfBirth"
-        (ionChange)="onFechaNacimientoChange($event)"
-        label="Nacimiento"
-        labelPlacement="floating">
-    </app-date-picker>
-  </ion-item> -->
+    <ion-item><ion-input label="Repetir contraseña" labelPlacement="floating"
+        [(ngModel)]="usuario.password"></ion-input></ion-item>
+  
+  
+ <ion-item><ion-input type="date" label="Fecha Nacimiento" labelPlacement="floating"
+        [(ngModel)]="fechaNacimientoInput" (ionChange)="onFechaNacimientoChange($event)"></ion-input></ion-item>
+        
+ 
+    <ion-item>
+      <ion-select label="Seleccione nivel" [(ngModel)]="usuario.nivelEducacional.id" placeholder="Seleccione nivel">
+        <ion-select-option *ngFor="let nivel of nivelesEducacionales" [value]="nivel.id">
+          {{ nivel.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+ 
 
-  <!-- <ion-item><ion-input label="Direccion" labelPlacement="floating"
-        [(ngModel)]="usuario.address"></ion-input></ion-item> -->
 
-  <!-- <ion-button  (click)="guardarUsuario()">
-    Guardar
-  </ion-button> -->
+  <ion-button style="font-weight: 600;"  (click)="mostrarDatosPersona()" expand="block" shape="round" class="centered-item custom-font">
+    Mostrar Datos
+    </ion-button>
+
+    <ion-button style="font-weight: 600;"  (click)="actualizarDatos()" expand="block" shape="round" class="centered-item custom-font">
+      Actualizar Datos
+    </ion-button>
+
+    <ion-button style="font-weight: 600;"  (click)="limpiar()" expand="block" shape="round" class="centered-item custom-font">
+      Limpiar Datos
+    </ion-button>
 
 </ion-content>

@@ -28,10 +28,9 @@ import { MisDatosPage } from "../mis-datos/mis-datos.page";
     ForumComponent,
     MapPage,
     MisDatosPage
-]
+  ]
 })
 export class HomePage {
-  
   @ViewChild(FooterComponent) footer!: FooterComponent;
   selectedComponent = 'welcome';
 
@@ -42,19 +41,29 @@ export class HomePage {
   }
 
   async headerClick(button: string) {
-
-    if (button === 'testqr')
+    if (button === 'testqr') {
       this.showDinoComponent(Dinosaur.jsonDinoExample);
+    }
 
-    if (button === 'scan' && Capacitor.getPlatform() === 'web')
-      this.selectedComponent = 'qrwebscanner';
-
-    if (button === 'scan' && Capacitor.getPlatform() !== 'web')
-        this.showDinoComponent(await this.scanner.scan());
+    if (button === 'scan') {
+      if (Capacitor.getPlatform() === 'web') {
+        this.selectedComponent = 'qrwebscanner';
+      } else {
+        const scanResult = await this.scanner.scan();
+        if (scanResult) {
+          this.showDinoComponent(scanResult);
+        }
+      }
+    }
   }
 
-  webQrScanned(qr: string) {
-    this.showDinoComponent(qr);
+  // Updated to handle QR scan result properly
+  webQrScanned(event: any) {
+    // Intenta acceder a `event.detail` o donde se almacene el texto escaneado
+    const text = event?.text || event?.detail?.text || ''; 
+    if (text) {
+      this.showDinoComponent(text);
+    }
   }
 
   webQrStopped() {
@@ -62,14 +71,12 @@ export class HomePage {
   }
 
   showDinoComponent(qr: string) {
-
     if (Dinosaur.isValidDinosaurQrCode(qr)) {
-      this.auth.qrCodeData.next(qr);
+      this.auth.setQRData(qr);
       this.changeComponent('dinosaur');
-      return;
+    } else {
+      this.changeComponent('welcome');
     }
-    
-    this.changeComponent('welcome');
   }
 
   footerClick(button: string) {
@@ -80,5 +87,4 @@ export class HomePage {
     this.selectedComponent = name;
     this.footer.selectedButton = name;
   }
-
 }
