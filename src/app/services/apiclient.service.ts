@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { retry, timeout } from 'rxjs/operators';
 import { Post } from '../model/post';
-import { showAlertError } from '../tools/message-functions';
+import { showAlertError, showToast } from '../tools/message-functions';
 import { AuthService } from './auth.service';
 import { User } from '../model/user';
 
@@ -14,117 +14,125 @@ export class APIClientService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'content-type': 'application/json',
-      'access-control-allow-origin': '*'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     })
   };
 
   apiUrl = 'http://localhost:3000';
-  //apiUrl = 'http://10.20.5.207:3005';
+
   private intervalId: any;
   postList: BehaviorSubject<Post[]> = new BehaviorSubject<Post[]>([]);
 
   constructor(private http: HttpClient) { 
     this.startRefreshingPosts();
   }
-  private startRefreshingPosts(): void{
+
+  private startRefreshingPosts(): void {
     this.refreshPostList();
-    this.intervalId = setInterval(()=> {
+    this.intervalId = setInterval(() => {
       this.refreshPostList();
-    },3000)
+    }, 5000);
   }
-  // Crear una publicación y actualizar postList; devuelve el registro recién creado
+
   async createPost(post: Post): Promise<Post | null> {
     try {
+      console.log('Creando post:', post);
       const postWithoutId = {
-        "title": post.title,
-        "body": post.body,
-        "author": post.author,
-        "date": post.date,
-        "authorImage": post.authorImage
+        title: post.title,
+        body: post.body,
+        author: post.author || 'Usuario',
+        date: new Date().toISOString().split('T')[0],
+        authorImage: post.authorImage || '/api/placeholder/100/100'
       };
 
       const createdPost = await lastValueFrom(
-        this.http.post<Post>(this.apiUrl + '/posts', 
-          postWithoutId, this.httpOptions).pipe(retry(3))
+        this.http.post<Post>(`${this.apiUrl}/posts`, postWithoutId, this.httpOptions)
+        .pipe(
+          timeout(5000),
+          retry(1)
+        )
       );
+      
+      console.log('Post creado:', createdPost);
       await this.refreshPostList();
+      showToast('Post creado correctamente');
       return createdPost;
     } catch (error) {
-      showAlertError('APIClientService.createPost', error);
+      console.error('Error al crear post:', error);
+      showAlertError('Error al crear el post', error);
       return null;
     }
   }
 
-  // Actualizar una publicación; devuelve la publicación actualizada
   async updatePost(post: Post): Promise<Post | null> {
     try {
       const updatedPost = await lastValueFrom(
-        this.http.put<Post>(this.apiUrl + '/posts/' + post.id, 
-          post, this.httpOptions).pipe(retry(3))
+        this.http.put<Post>(`${this.apiUrl}/posts/${post.id}`, post, this.httpOptions)
+        .pipe(
+          timeout(5000),
+          retry(1)
+        )
       );
       await this.refreshPostList();
+      showToast('Post actualizado correctamente');
       return updatedPost;
     } catch (error) {
-      showAlertError('APIClientService.updatePost', error);
+      console.error('Error al actualizar post:', error);
+      showAlertError('Error al actualizar el post', error);
       return null;
     }
   }
 
-  // Eliminar una publicación; devuelve true si se eliminó exitosamente
   async deletePost(id: number): Promise<boolean> {
     try {
       await lastValueFrom(
-        this.http.delete(this.apiUrl + '/posts/' + id, this.httpOptions).pipe(retry(3))
+        this.http.delete(`${this.apiUrl}/posts/${id}`, this.httpOptions)
+        .pipe(
+          timeout(5000),
+          retry(1)
+        )
       );
       await this.refreshPostList();
+      showToast('Post eliminado correctamente');
       return true;
     } catch (error) {
-      showAlertError('APIClientService.deletePost', error);
+      console.error('Error al eliminar post:', error);
+      showAlertError('Error al eliminar el post', error);
       return false;
     }
   }
 
-  // Refrescar el listado de publicaciones y notificar a los suscriptores
   async refreshPostList(): Promise<void> {
     try {
       const posts = await this.fetchPosts();
-      console.log(posts);
+      console.log('Posts obtenidos:', posts);
       this.postList.next(posts);
     } catch (error) {
-      showAlertError('APIClientService.refreshPostList', error);
+      console.error('Error al refrescar posts:', error);
     }
   }
 
-  // Obtener todas las publicaciones desde la API
   async fetchPosts(): Promise<Post[]> {
     try {
+      console.log('Obteniendo posts de:', `${this.apiUrl}/posts`);
       const posts = await lastValueFrom(
-        this.http.get<Post[]>(this.apiUrl + '/posts').pipe(retry(3)));
-      return posts.reverse();
+        this.http.get<Post[]>(`${this.apiUrl}/posts`)
+        .pipe(
+          timeout(5000),
+          retry(1)
+        )
+      );
+      return posts.sort((a, b) => Number(b.id) - Number(a.id));
     } catch (error) {
-      this.handleHttpError('APIClientService.fetchPosts', error);
+      console.error('Error al obtener posts:', error);
       return [];
     }
   }
 
-  // Manejo de errores HTTP con detección de códigos de estado
-  private handleHttpError(methodName: string, error: any): void {
-    if (error instanceof HttpErrorResponse) {
-      const statusCode = error.status;
-      if (statusCode === 400) {
-        showAlertError(`${methodName} - Solicitud incorrecta (400)`, error.message);
-      } else if (statusCode === 401) {
-        showAlertError(`${methodName} - No autorizado (401)`, error.message);
-      } else if (statusCode === 404) {
-        showAlertError(`${methodName} - No encontrado (404)`, error.message, true);
-      } else if (statusCode === 500) {
-        showAlertError(`${methodName} - Error interno del servidor (500)`, error.message);
-      } else {
-        showAlertError(`${methodName} - Error inesperado (${statusCode})`, error.message);
-      }
-    } else {
-      showAlertError(`${methodName} - Error desconocido`, error);
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
   }
 }

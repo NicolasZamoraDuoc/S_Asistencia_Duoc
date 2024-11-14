@@ -1,0 +1,12 @@
+{
+  "posts": [
+    {
+      "id": "40a7",
+      "title": "adas",
+      "body": "asdasd",
+      "author": "Ana Torres",
+      "date": "2024-11-14",
+      "authorImage": "/api/placeholder/100/100"
+    }
+  ]
+}
